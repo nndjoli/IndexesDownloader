@@ -2,20 +2,31 @@ name: Download index histories
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "index_histories/**"
   schedule:
     - cron: "0 4 * * 1"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: index-history-publication
+  cancel-in-progress: false
 
 jobs:
   download:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,10 +40,10 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Validate Python syntax
-        run: python -m py_compile Indexes.py RunIndexes.py
+        run: python -m py_compile Indexes.py
 
       - name: Download index histories
-        run: python RunIndexes.py
+        run: python Indexes.py
 
       - name: Upload generated files
         if: always()
@@ -42,3 +53,19 @@ jobs:
           path: index_histories/
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Publish generated files to the repository
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index_histories/
+
+          if git diff --cached --quiet; then
+            echo "No generated-file change to publish."
+            exit 0
+          fi
+
+          git commit -m "Update index histories [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main

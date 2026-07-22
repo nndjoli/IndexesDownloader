@@ -2,6 +2,9 @@ name: Download index histories
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 4 * * 1"
 
@@ -29,10 +32,10 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Validate Python syntax
-        run: python -m py_compile Indexes.py
+        run: python -m py_compile Indexes.py RunIndexes.py
 
       - name: Download index histories
-        run: python Indexes.py
+        run: python RunIndexes.py
 
       - name: Upload generated CSV files
         if: always()

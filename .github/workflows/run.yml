@@ -40,10 +40,10 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Validate Python syntax
-        run: python -m py_compile Indexes.py
+        run: python -m py_compile Indexes.py RunIndexes.py
 
       - name: Download index histories
-        run: python Indexes.py
+        run: python RunIndexes.py
 
       - name: Upload generated files
         if: always()

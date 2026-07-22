@@ -1,0 +1,30 @@
+{
+  "run_utc": "2026-07-22T06:43:14.166145+00:00",
+  "version": "12.0.0",
+  "downloaded": 4,
+  "fallback_previous": 0,
+  "failed_empty": 4,
+  "available_daily_series": [
+    "CAC_40_Gross_Return",
+    "CAC_40_Price_Return",
+    "CAC_All_Tradable_Gross_Return",
+    "CAC_All_Tradable_Price_Return"
+  ],
+  "available_eom_pairs": [
+    "CAC 40",
+    "CAC All-Tradable"
+  ],
+  "pair_events": [
+    {
+      "Pair": "STOXX Europe 600",
+      "Status": "failed_empty",
+      "Error": "Paire incomplète: STOXX_600_Gross_Return, STOXX_600_Price_Return"
+    },
+    {
+      "Pair": "EURO STOXX 50",
+      "Status": "failed_empty",
+      "Error": "Paire incomplète: EURO_STOXX_50_Gross_Return, EURO_STOXX_50_Price_Return"
+    }
+  ],
+  "negative_dividend_warnings": 60
+}

@@ -1,8 +1,8 @@
 {
-  "run_utc": "2026-07-22T09:24:03.693687+00:00",
+  "run_utc": "2026-07-27T06:56:12.337161+00:00",
   "version": "12.1.0",
-  "downloaded": 8,
-  "fallback_previous": 0,
+  "downloaded": 4,
+  "fallback_previous": 4,
   "failed_empty": 0,
   "available_daily_series": [
     "CAC_40_Gross_Return",
